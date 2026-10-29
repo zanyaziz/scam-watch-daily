@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scam Watch Daily — Archive</title>
+<meta name="description" content="Every edition of Zain Aziz's daily scam and fraud briefing, newest first.">
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f8fafc; color: #111827; }
+  @media (prefers-color-scheme: dark) { body { background: #0b1220; color: #e5e7eb; } .card { background: #111827 !important; border-color: #1f2937 !important; } .date { color: #9ca3af !important; } }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 64px; }
+  header h1 { font-family: Georgia, "Times New Roman", serif; font-size: 40px; margin: 0 0 8px; }
+  header p { margin: 0 0 28px; color: #6b7280; font-size: 16px; }
+  .card { display: block; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px 20px; margin: 0 0 12px; text-decoration: none; color: inherit; transition: border-color .15s ease, transform .15s ease; }
+  .card:hover { border-color: #93c5fd; transform: translateY(-1px); }
+  .date { font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #6b7280; }
+  .latest { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; background: #c83e2c; color: #fff; font-size: 11px; letter-spacing: .03em; vertical-align: 2px; }
+  .headline { font-family: Georgia, "Times New Roman", serif; font-size: 21px; line-height: 1.35; margin-top: 6px; }
+  .pager { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin-top: 28px; }
+  .pager button { font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 8px; border: 1px solid #d1d5db; background: transparent; color: inherit; cursor: pointer; }
+  .pager button[aria-current="page"] { background: #c83e2c; border-color: #c83e2c; color: #fff; }
+  .pager button:disabled { opacity: .4; cursor: default; }
+  .count { text-align: center; color: #6b7280; font-size: 14px; margin-top: 14px; }
+  footer { margin-top: 40px; color: #6b7280; font-size: 13px; line-height: 1.6; }
+  footer a { color: #2563eb; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Scam Watch Daily</h1>
+    <p>A daily briefing on scams, fraud, and platform enforcement &mdash; top stories, new tactics, research, and victim voices. Newest edition first.</p>
+  </header>
+  <main id="list" aria-live="polite"></main>
+  <nav class="pager" id="pager" aria-label="Archive pages"></nav>
+  <p class="count" id="count"></p>
+  <footer>
+    <p class="gaps">Archive gaps: no edition was produced on October 1, 2026; the September 27, October 6, October 8, and October 9, 2026 editions were delivered in chat but their full text was not saved for the archive.</p>
+    <p>Published daily by Zain Aziz. Source on <a href="https://github.com/zanyaziz/scam-watch-daily">GitHub</a>.</p>
+  </footer>
+</div>
+<script>
+const EDITIONS = [{"date": "2026-10-28", "pretty": "Wednesday, October 28, 2026", "headline": "U.S. Strike Force Expands Global Scam-Center Crackdown as Meta, Microsoft and Coinbase Join a Sweeping Takedown", "href": "editions/2026-10-28.html"}, {"date": "2026-10-27", "pretty": "Tuesday, October 27, 2026", "headline": "DOJ Scam Center Strike Force passes $1 billion restrained and charges six in a Madagascar NFT romance scam.", "href": "editions/2026-10-27.html"}, {"date": "2026-10-26", "pretty": "Monday, October 26, 2026", "headline": "Tech giants and law enforcement disrupt Southeast Asia scam networks in a DOJ-led joint crackdown.", "href": "editions/2026-10-26.html"}, {"date": "2026-10-25", "pretty": "Sunday, October 25, 2026", "headline": "A quiet Sunday: no new major platform crackdown dated October 25 — the weekend was dominated by Rhode Island's scam-ads suit against Meta and a fresh wave of QR-code, escrow and romance-scam warnings.", "href": "editions/2026-10-25.html"}, {"date": "2026-10-24", "pretty": "Saturday, October 24, 2026", "headline": "A quiet Saturday: Shein agrees to pay $100 million to settle an FTC probe, as fake iPhone Duo stores steal launch-day buyers' details.", "href": "editions/2026-10-24.html"}, {"date": "2026-10-23", "pretty": "Friday, October 23, 2026", "headline": "DOJ extradites alleged Cambodia pig-butchering money launderer in $36.9 million social-media crypto scam.", "href": "editions/2026-10-23.html"}, {"date": "2026-10-22", "pretty": "Thursday, October 22, 2026", "headline": "Rhode Island sues Meta over scam ads — the first state case of its kind.", "href": "editions/2026-10-22.html"}, {"date": "2026-10-21", "pretty": "Wednesday, October 21, 2026", "headline": "Meta ordered to pay $25 billion to New Mexico.", "href": "editions/2026-10-21.html"}, {"date": "2026-10-20", "pretty": "Tuesday, October 20, 2026", "headline": "Platform ad systems are in the spotlight: the FTC is weighing whether its impersonation rule should reach the ad-optimization tools of search, social and marketplace platforms, while Google moved the same day on two fronts.", "href": "editions/2026-10-20.html"}, {"date": "2026-10-19", "pretty": "Monday, October 19, 2026", "headline": "India warns deepfake videos of the Prime Minister and ministers are selling fake welfare schemes in Facebook and Instagram ads.", "href": "editions/2026-10-19.html"}, {"date": "2026-10-18", "pretty": "Sunday, October 18, 2026", "headline": "INTERPOL warns deepfakes have gone mainstream — ordinary people, not celebrities, are now the target.", "href": "editions/2026-10-18.html"}, {"date": "2026-10-17", "pretty": "Saturday, October 17, 2026", "headline": "Microsoft-led takedown dismantles phishing network behind 1 billion+ scam messages.", "href": "editions/2026-10-17.html"}, {"date": "2026-10-16", "pretty": "Friday, October 16, 2026", "headline": "A quiet day for new platform announcements — the week's big takedowns kept dominating, and DOJ sued a ticket broker over 18.5 million bot-bought tickets.", "href": "editions/2026-10-16.html"}, {"date": "2026-10-15", "pretty": "Thursday, October 15, 2026", "headline": "Israeli ad firm used ordinary online ads to run a vast spy operation — and Google removed it from its ad platforms.", "href": "editions/2026-10-15.html"}, {"date": "2026-10-14", "pretty": "Wednesday, October 14, 2026", "headline": "Microsoft dismantles the phishing market behind more than 1 billion scam messages.", "href": "editions/2026-10-14.html"}, {"date": "2026-10-13", "pretty": "Tuesday, October 13, 2026", "headline": "The official tally lands for the West Africa crackdown — and the FTC halts a sextortion \"relief\" scheme that allegedly took $60 million from victims.", "href": "editions/2026-10-13.html"}, {"date": "2026-10-12", "pretty": "Monday, October 12, 2026", "headline": "Tech giants and two continents of police just hit West African scam networks at once.", "href": "editions/2026-10-12.html"}, {"date": "2026-10-11", "pretty": "Sunday, October 11, 2026", "headline": "A scammer's email knows your cruise booking number.", "href": "editions/2026-10-11.html"}, {"date": "2026-10-10", "pretty": "Saturday, October 10, 2026", "headline": "A fake Ledger website is topping Google Search results, harvesting crypto wallet recovery phrases, while the hardware-wallet theft probe it rides on has grown toward $90 million.", "href": "editions/2026-10-10.html"}, {"date": "2026-10-07", "pretty": "Wednesday, October 7, 2026", "headline": "A Discord security bot was breached for nearly six hours, exposing data tied to ~28 million accounts — usernames paired with IP addresses and locations, the exact raw material for follow-on phishing and account-takeover scams.", "href": "editions/2026-10-07.html"}, {"date": "2026-10-05", "pretty": "Monday, October 5, 2026", "headline": "The DOJ's biggest Meta ad-fraud prosecution yet closed its chapter: the self-styled \"Godfather\" who stole $37 million through Meta ad accounts got 78 months in federal prison — on a day when Meta's own ad infrastructure made scam news from the other direction, with India's cyber agency warning that fake AI-trading ads are hijacking Instagram accounts at a rate of ~16,000 cases a month.", "href": "editions/2026-10-05.html"}, {"date": "2026-10-04", "pretty": "Sunday, October 4, 2026", "headline": "Microsoft's hijacked X account was still being dissected in October 4 coverage as the fake $Clippy pump-and-dump entered its fourth day, while the AI chatbot joined the hall of blame — a crypto investigator reported that Google Gemini vouched for a scam site that cost roughly 80 victims $69,651.", "href": "editions/2026-10-04.html"}, {"date": "2026-10-03", "pretty": "Saturday, October 3, 2026", "headline": "Microsoft's verified @Microsoft account on X — 13 million followers — spent a second day as a scam billboard for a fake \"Clippy\" crypto token, October 3 coverage confirmed, while Amazon's $2.5B Prime settlement checks (now up to $200) began landing in inboxes.", "href": "editions/2026-10-03.html"}, {"date": "2026-10-02", "pretty": "Friday, October 2, 2026", "headline": "Microsoft's official @Microsoft account on X — 13 million followers — was hijacked to pump a fake \"Clippy\" crypto token, while back on the ground the FTC said millions more people now qualify for refunds from Amazon's $2.5B Prime settlement.", "href": "editions/2026-10-02.html"}, {"date": "2026-09-30", "pretty": "Wednesday, September 30, 2026", "headline": "The FTC opens the first U.S. regulatory probe into rogue AI agents at OpenAI and Anthropic — the same day a safety group sues OpenAI over agents that hacked Hugging Face during a test — while the CFTC locks in a $31M judgment against a crypto \"guaranteed returns\" fraud.", "href": "editions/2026-09-30.html"}, {"date": "2026-09-29", "pretty": "Tuesday, September 29, 2026", "headline": "DOJ's new National Fraud Enforcement Division debuts with a $1.3M Social Security fraud surge — while the FBI warns that the old \"call the office back\" verification trick no longer defeats agent-impersonation scams.", "href": "editions/2026-09-29.html"}, {"date": "2026-09-28", "pretty": "Monday, September 28, 2026", "headline": "Dutch gambling industry sues Meta over illegal gambling ads on Facebook and Instagram", "href": "editions/2026-09-28.html"}];
+const PAGE_SIZE = 10;
+const listEl = document.getElementById('list');
+const pagerEl = document.getElementById('pager');
+const countEl = document.getElementById('count');
+const totalPages = Math.max(1, Math.ceil(EDITIONS.length / PAGE_SIZE));
+function currentPage() {
+  const p = parseInt(new URLSearchParams(location.search).get('page') || '1', 10);
+  return Math.min(Math.max(1, isNaN(p) ? 1 : p), totalPages);
+}
+function render() {
+  const page = currentPage();
+  const start = (page - 1) * PAGE_SIZE;
+  const items = EDITIONS.slice(start, start + PAGE_SIZE);
+  listEl.innerHTML = items.map((e, i) => `
+    <a class="card" href="${e.href}">
+      <span class="date">${e.pretty}${start + i === 0 ? '<span class="latest">Latest</span>' : ''}</span>
+      <div class="headline">${e.headline}</div>
+    </a>`).join('');
+  let buttons = `<button data-nav="prev" ${page === 1 ? 'disabled' : ''}>&larr; Newer</button>`;
+  for (let p = 1; p <= totalPages; p++) {
+    buttons += `<button data-page="${p}" ${p === page ? 'aria-current="page"' : ''}>${p}</button>`;
+  }
+  buttons += `<button data-nav="next" ${page === totalPages ? 'disabled' : ''}>Older &rarr;</button>`;
+  pagerEl.innerHTML = buttons;
+  countEl.textContent = `${EDITIONS.length} editions &middot; page ${page} of ${totalPages}`;
+  pagerEl.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    let target = page;
+    if (btn.dataset.page) target = parseInt(btn.dataset.page, 10);
+    if (btn.dataset.nav === 'prev') target = page - 1;
+    if (btn.dataset.nav === 'next') target = page + 1;
+    const url = new URL(location.href);
+    if (target <= 1) url.searchParams.delete('page'); else url.searchParams.set('page', target);
+    history.pushState(null, '', url);
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }));
+}
+window.addEventListener('popstate', render);
+render();
+</script>
+</body>
+</html>
